@@ -6,6 +6,7 @@ use app\modules\api\resources\BlogResource;
 use yii\filters\auth\HttpBearerAuth;
 use yii\rest\ActiveController;
 use yii\web\Response;
+use yii\helpers\ArrayHelper;
 
 class BlogController extends ActiveController
 {
@@ -23,5 +24,21 @@ class BlogController extends ActiveController
             HttpBearerAuth::class,
         ];
         return $behaviors;
+    }
+
+    public function actions()
+    {
+        return ArrayHelper::merge(parent::actions(), [
+            'index' => [
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
+                'sort' => [
+                    'defaultOrder' => [
+                        'created_at' => SORT_DESC,
+                    ],
+                ],
+            ],
+        ]);
     }
 }
