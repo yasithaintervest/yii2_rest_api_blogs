@@ -19,26 +19,44 @@ class BlogController extends ActiveController
 
     public function behaviors()
     {
-        $behaviors = parent::behaviors();
-        $behaviors['authenticator']['authMethods'] = [
-            HttpBearerAuth::class,
+        // $behaviors = parent::behaviors();
+        // $behaviors['authenticator']['authMethods'] = [
+        //     HttpBearerAuth::class,
+        // ];
+        // return $behaviors;
+
+
+        return [
+            'authenticator'=>[
+                'class' => 'yii\graphql\filter\auth\CompositeAuth',
+                'authMethods' => [
+                    HttpBearerAuth::class,
+                ],
+                'except' => ['hello']
+            ],
         ];
-        return $behaviors;
     }
 
     public function actions()
     {
-        return ArrayHelper::merge(parent::actions(), [
-            'index' => [
-                'pagination' => [
-                    'pageSize' => 10,
-                ],
-                'sort' => [
-                    'defaultOrder' => [
-                        'created_at' => SORT_DESC,
-                    ],
-                ],
+
+        return [
+            'index'=>[
+                'class'=>'yii\graphql\GraphQLAction'
             ],
-        ]);
+       ];
+
+        // return ArrayHelper::merge(parent::actions(), [
+        //     'index' => [
+        //         'pagination' => [
+        //             'pageSize' => 10,
+        //         ],
+        //         'sort' => [
+        //             'defaultOrder' => [
+        //                 'created_at' => SORT_DESC,
+        //             ],
+        //         ],
+        //     ],
+        // ]);
     }
 }

@@ -48,7 +48,7 @@ $config = [
             ],
         ],
         'db' => $db,
-        
+
         'urlManager' => [
             'enablePrettyUrl' => true,
 
@@ -58,11 +58,13 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'blog'],
             ],
         ],
-        
+
     ],
     'modules' => [
         'api' => [
-            'class' => \app\modules\api\Module::class
+            'class' => \app\modules\api\Module::class,
+            //graphql config
+            'schema' => require __DIR__ . '/../../modules/api/graph/schema.php',
         ]
     ],
     'params' => $params,
