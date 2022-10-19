@@ -2,13 +2,14 @@
 
 namespace app\modules\api\controllers;
 
+
 use app\modules\api\resources\BlogResource;
 use yii\filters\auth\HttpBearerAuth;
-use yii\rest\ActiveController;
+
 use yii\web\Response;
 use yii\helpers\ArrayHelper;
 
-class BlogController extends ActiveController
+class BlogController extends ApiController
 {
 
     public $modelClass = BlogResource::class;
@@ -17,46 +18,21 @@ class BlogController extends ActiveController
         'collectionEnvelope' => 'blogs',
     ];
 
-    public function behaviors()
-    {
-        // $behaviors = parent::behaviors();
-        // $behaviors['authenticator']['authMethods'] = [
-        //     HttpBearerAuth::class,
-        // ];
-        // return $behaviors;
-
-
-        return [
-            'authenticator'=>[
-                'class' => 'yii\graphql\filter\auth\CompositeAuth',
-                'authMethods' => [
-                    HttpBearerAuth::class,
-                ],
-                'except' => ['hello']
-            ],
-        ];
-    }
 
     public function actions()
     {
 
-        return [
-            'index'=>[
-                'class'=>'yii\graphql\GraphQLAction'
+        return ArrayHelper::merge(parent::actions(), [
+            'index' => [
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
+                'sort' => [
+                    'defaultOrder' => [
+                        'created_at' => SORT_DESC,
+                    ],
+                ],
             ],
-       ];
-
-        // return ArrayHelper::merge(parent::actions(), [
-        //     'index' => [
-        //         'pagination' => [
-        //             'pageSize' => 10,
-        //         ],
-        //         'sort' => [
-        //             'defaultOrder' => [
-        //                 'created_at' => SORT_DESC,
-        //             ],
-        //         ],
-        //     ],
-        // ]);
+        ]);
     }
 }

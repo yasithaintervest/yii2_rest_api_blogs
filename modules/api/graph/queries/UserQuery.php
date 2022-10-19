@@ -2,6 +2,7 @@
 
 namespace app\modules\api\graph\queries;
 
+use app\modules\api\graph\types\UserType;
 use Yii;
 use yii\graphql\GraphQL;
 use GraphQL\Type\Definition\Type;

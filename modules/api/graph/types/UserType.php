@@ -18,22 +18,9 @@ class UserType extends GraphQLType
     {
         $result = [
             'id' => ['type' => Type::id()],
-            //'username' => Types::username(),
-            // 'email2' => Types::email(),
-            // 'photo' => [
-            //     'type' => GraphQL::type(ImageType::class),
-            //     'description' => 'User photo URL',
-            //     'args' => [
-            //         'size' => Type::nonNull(GraphQL::type(ImageSizeEnumType::class)),
-            //     ]
-            // ],
             'username' => [
                 'type' => Type::string(),
             ],
-            // 'lastName' => [
-            //     'type' => Type::string(),
-            // ],
-            // 'lastStoryPosted' => GraphQL::type(StoryType::class),
             'fieldWithError' => [
                 'type' => Type::string(),
                 'resolve' => function () {

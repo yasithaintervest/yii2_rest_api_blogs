@@ -64,7 +64,24 @@ $config = [
         'api' => [
             'class' => \app\modules\api\Module::class,
             //graphql config
-            'schema' => require __DIR__ . '/../../modules/api/graph/schema.php',
+            //'schema' => require __DIR__ . '/../../modules/api/graph/schema.php',
+
+            'schema' => [
+                'query' => [
+                    'user' => '\app\modules\api\graph\queries\UserQuery',
+                    'blog' => '\app\modules\api\graph\queries\BlogQuery'
+                ],
+                'mutation' => [
+                    'user' => '\app\modules\api\graph\mutations\UserMutation',
+                    'blog' => '\app\modules\api\graph\mutations\BlogMutation'
+                ],
+                // you do not need to set the types if your query contains interfaces or fragments
+                // the key must same as your defined class
+                'types' => [
+                    'User' => '\app\modules\api\graph\types\UserType',
+                    'Blog' => '\app\modules\api\graph\types\BlogType'
+                ],
+            ]
         ]
     ],
     'params' => $params,

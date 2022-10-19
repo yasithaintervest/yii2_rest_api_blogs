@@ -2,13 +2,42 @@
 
 namespace app\modules\api\controllers;
 
+
 use app\modules\api\models\LoginForm;
 use app\modules\api\models\SignupForm;
+use app\modules\api\resources\UserResource;
 use Yii;
-use yii\rest\Controller;
+use yii\helpers\ArrayHelper;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
+
+    public $modelClass = UserResource::class;
+
+    public function behaviors()
+    {
+        return parent::behaviors();
+    }
+
+
+    public function actions()
+    {
+        
+        return ArrayHelper::merge(parent::actions(), [
+            'index' => [
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
+                'sort' => [
+                    'defaultOrder' => [
+                        'created_at' => SORT_DESC,
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+
     public function actionLogin()
     {
         $model = new LoginForm();
@@ -16,7 +45,7 @@ class UserController extends Controller
             return $model->getUser();
         }
 
-       Yii::$app->response->statusCode = 422;
+        Yii::$app->response->statusCode = 422;
         return [
             'errors' => $model->errors
         ];
@@ -30,7 +59,7 @@ class UserController extends Controller
             return $model->_user;
         }
 
-       Yii::$app->response->statusCode = 422;
+        Yii::$app->response->statusCode = 422;
         return [
             'errors' => $model->errors
         ];
