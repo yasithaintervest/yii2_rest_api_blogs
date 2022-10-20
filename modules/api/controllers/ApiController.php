@@ -2,7 +2,7 @@
 
 namespace app\modules\api\controllers;
 
-
+use app\modules\api\components\AuthComponent;
 use yii\filters\auth\HttpBearerAuth;
 use yii\rest\ActiveController;
 use yii\web\NotFoundHttpException;
@@ -27,7 +27,7 @@ class ApiController extends ActiveController
       //  $excludedActions = [];
         $behaviors = [
             'authenticator' => [
-                'class' => 'yii\graphql\filter\auth\CompositeAuth',
+                'class' => AuthComponent::class,
                 'authMethods' =>  [
                     HttpBearerAuth::class
                 ],

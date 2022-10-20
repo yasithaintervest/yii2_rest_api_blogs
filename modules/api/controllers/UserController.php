@@ -14,28 +14,28 @@ class UserController extends ApiController
 
     public $modelClass = UserResource::class;
 
-    public function behaviors()
-    {
-        return parent::behaviors();
-    }
+    // public function behaviors()
+    // {
+    //     return parent::behaviors();
+    // }
 
 
-    public function actions()
-    {
+    // public function actions()
+    // {
         
-        return ArrayHelper::merge(parent::actions(), [
-            'index' => [
-                'pagination' => [
-                    'pageSize' => 10,
-                ],
-                'sort' => [
-                    'defaultOrder' => [
-                        'created_at' => SORT_DESC,
-                    ],
-                ],
-            ],
-        ]);
-    }
+    //     return ArrayHelper::merge(parent::actions(), [
+    //         'index' => [
+    //             'pagination' => [
+    //                 'pageSize' => 10,
+    //             ],
+    //             'sort' => [
+    //                 'defaultOrder' => [
+    //                     'created_at' => SORT_DESC,
+    //                 ],
+    //             ],
+    //         ],
+    //     ]);
+    // }
 
 
     public function actionLogin()

@@ -5,7 +5,7 @@ namespace app\modules\api\controllers;
 
 
 class GraphqlController extends ApiController {
-	public $modelClass = 'models\User';
+	public $modelClass = 'app\models\User' ;
 	public $hosts = ['*'];
 
 	function actions() {
