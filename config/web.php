@@ -56,30 +56,30 @@ $config = [
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'blog'],
+                'POST graphql' => 'graphql/graphql',
+                'PUT graphql' => 'graphql/graphql',
+                'DELETE graphql' => 'graphql/graphql',
             ],
         ],
 
     ],
     'modules' => [
-        'api' => [
+        'graphql' => [
             'class' => \app\modules\api\Module::class,
-            //graphql config
-            //'schema' => require __DIR__ . '/../../modules/api/graph/schema.php',
-
             'schema' => [
                 'query' => [
-                    'user' => '\app\modules\api\graph\queries\UserQuery',
-                    'blog' => '\app\modules\api\graph\queries\BlogQuery'
+                    'user' => 'app\modules\api\graph\queries\UserQuery',
+                    'blog' => 'app\modules\api\graph\queries\BlogQuery'
                 ],
                 'mutation' => [
-                    'user' => '\app\modules\api\graph\mutations\UserMutation',
-                    'blog' => '\app\modules\api\graph\mutations\BlogMutation'
+                    'user' => 'app\modules\api\graph\mutations\UserMutation',
+                    'blog' => 'app\modules\api\graph\mutations\BlogMutation'
                 ],
                 // you do not need to set the types if your query contains interfaces or fragments
                 // the key must same as your defined class
                 'types' => [
-                    'User' => '\app\modules\api\graph\types\UserType',
-                    'Blog' => '\app\modules\api\graph\types\BlogType'
+                    'user' => 'app\modules\api\graph\types\UserType',
+                    'blog' => 'app\modules\api\graph\types\BlogType'
                 ],
             ]
         ]

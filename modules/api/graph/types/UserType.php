@@ -10,24 +10,26 @@ use GraphQL\Type\Definition\Type;
 class UserType extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'user',
-        'description' => 'user is user'
+        'name'=>'user',
+        'description'=>'user is user'
     ];
 
     public function fields()
     {
-        $result = [
-            'id' => ['type' => Type::id()],
-            'username' => [
-                'type' => Type::string(),
-            ],
+        return array_merge([
+
+            'id' => Type::int(),
+            'username' => Type::string(),
+				
             'fieldWithError' => [
                 'type' => Type::string(),
-                'resolve' => function () {
+                'resolve' => function() {
                     throw new \Exception("This is error field");
                 }
-            ]
-        ];
-        return $result;
+            ] 
+
+        ]);
+
     }
+
 }

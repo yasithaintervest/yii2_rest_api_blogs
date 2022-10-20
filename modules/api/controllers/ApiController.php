@@ -2,50 +2,34 @@
 
 namespace app\modules\api\controllers;
 
-use app\modules\api\components\AuthComponent;
 use yii\filters\auth\HttpBearerAuth;
-use yii\rest\ActiveController;
-use yii\web\NotFoundHttpException;
+use yii\rest\Controller;
+use app\modules\api\components\AuthComponent;
 
-class ApiController extends ActiveController
+class ApiController extends Controller
 {
-
     public function behaviors()
     {
-
-
-        //	$is_graph_ql = method_exists($this->action, "getGraphQLActions");
-
-        // throw new NotFoundHttpException ("SITE DOWN FOR MAINTENANCE");
-
-        // $excludedActions = [];
-
-        // if (Yii::$app->request->isPut) {
-        // 	$excludedActions[] = "user";
-        // 	$excludedActions[] = "business";
-        // }
-      //  $excludedActions = [];
-        $behaviors = [
+        return [
             'authenticator' => [
                 'class' => AuthComponent::class,
-                'authMethods' =>  [
+                'authMethods' => [
                     HttpBearerAuth::class
                 ],
-                 'except' => ['hello']
-
-            ]
+                'except' => ['hello']
+            ],
         ];
+    }
 
-        return array_merge(
-            parent::behaviors(),
-            $behaviors
-        );
+    protected function verbs()
+    {
+        return [
+            'index' => ['POST', 'PUT', 'DELETE'],
+        ];
+    }
 
-        // $behaviors = parent::behaviors();
-        // $behaviors['authenticator']['authMethods'] = [
-        //     HttpBearerAuth::class,
-        // ];
-
-        // return $behaviors;
+    public function actionError()
+    {
+        return 'error';
     }
 }

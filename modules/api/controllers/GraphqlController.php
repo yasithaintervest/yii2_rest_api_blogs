@@ -4,28 +4,14 @@ namespace app\modules\api\controllers;
 
 
 
-class GraphqlController extends ApiController {
-	public $modelClass = 'app\models\User' ;
-	public $hosts = ['*'];
-
-	function actions() {
+class GraphqlController extends ApiController
+{
+	public function actions()
+	{
 		return [
-			'index'=>[
-                'class'=>'yii\graphql\GraphQLAction',
-				'checkAccess'=> [$this,'checkAccess'],
-            ],
+			'index' => [
+				'class' => 'yii\graphql\GraphQLAction'
+			]
 		];
-	}
-
-	
-
-	protected function verbs() {
-		return [
-			'index' => ['POST', 'PUT', 'DELETE'],
-		];
-	}
-
-	public function actionError() {
-		return 'error';
 	}
 }

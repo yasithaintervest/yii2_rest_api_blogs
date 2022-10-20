@@ -1,20 +1,14 @@
 <?php
 
 namespace app\modules\api\graph\queries;
-
-use app\models\Blog;
 use app\modules\api\graph\types\BlogType;
-use Yii;
 use yii\graphql\GraphQL;
 use GraphQL\Type\Definition\Type;
-use yii\graphql\base\GraphQLQuery;
 
-class BlogQuery extends GraphQLQuery
+class BlogQuery extends BaseQuery
 {
 
-
-
-	public $modelName = 'models\Blog';
+	public $modelName = 'app\models\Blog';
 
 	protected $attributes = [
 		'name' => 'Blogs',
@@ -54,15 +48,6 @@ class BlogQuery extends GraphQLQuery
 		}, ARRAY_FILTER_USE_KEY);
 	}
 
-    public function getCommonArgs() {
-		return [
-			'id',
-			'title',
-			'created_at',
-			'created_by',
-			'updated_at',
-	
-		];
-	}
+    
 
 }

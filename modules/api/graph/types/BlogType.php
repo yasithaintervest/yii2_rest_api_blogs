@@ -31,6 +31,21 @@ class BlogType extends GraphQLType
 				'type' => Type::string(),
 				'description' => 'The body of blog'
 			],
+            'created_at' => [
+				'type' => Type::int(),
+				'description' => 'The date of blog'
+			],
+            'created_by' => [
+				'type' => Type::int(),
+				'description' => 'The date of blog'
+			],
+            'fieldWithError' => [
+                'type' => Type::string(),
+                'resolve' => function() {
+                    throw new \Exception("This is error field");
+                }
+            ] 
+
         ]);
 
     }
